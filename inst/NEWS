@@ -1,2 +1,2 @@
-Changes in version 1.11.1 (2022-08-05)
-- Bugfix: manage mxML files without timestamp tag
+Changes in version 1.12.1 (2022-11-06)
+- Hotfix: unittest error due to change in ggplot2 histogram warning
