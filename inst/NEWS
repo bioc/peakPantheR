@@ -1,4 +1,5 @@
-Changes in version 1.12.1 (2022-12-11)
+Changes in version 1.12.1 (2022-11-08)
 - Bugfix: plotHistogram changing warning message
+Changes in version 1.12.2 (2022-12-11)
 - Bugfix: peakPantheR_plotPeakwidth issue due to ggplot2 behaviour changes for
     date axis
