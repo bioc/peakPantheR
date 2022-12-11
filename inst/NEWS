@@ -1,2 +1,4 @@
-Changes in version 1.12.1 (2022-11-06)
-- Hotfix: unittest error due to change in ggplot2 histogram warning
+Changes in version 1.12.1 (2022-12-11)
+- Bugfix: plotHistogram changing warning message
+- Bugfix: peakPantheR_plotPeakwidth issue due to ggplot2 behaviour changes for
+    date axis
