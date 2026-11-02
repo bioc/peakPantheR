@@ -3,8 +3,8 @@ context('Continuum/profile mode')
 skip_if_not_installed('msdata',  minimum_version = '0.24.1')
 library(msdata)
 
-can_read_continuum_mzml <- function() {
-  file <- system.file('sciex/20171016_POOL_POS_1_105-134.mzML', package = 'msdata')
+can_read_continuum_mzml <- function(
+    file = system.file('sciex/20171016_POOL_POS_1_105-134.mzML', package = 'msdata')) {
   if (!nzchar(file)) {
     return(FALSE)
   }
@@ -55,7 +55,7 @@ if (can_read_continuum_mzml()) {
 
 
 test_that('extractSignalRawData() continuum mode', {
-  skip_if_not(can_read_continuum_mzml(), 'mzR cannot open the continuum mzML fixture in this CI image')
+  skip_if_not(can_read_continuum_mzml(), 'mzR could not open or validate all required continuum mzML fixtures')
   # Input
   raw_data <- MSnbase::readMSData(system.file('sciex/20171016_POOL_POS_1_105-134.mzML', package = "msdata"),
                                   centroided = FALSE, mode='onDisk')
@@ -81,7 +81,7 @@ test_that('extractSignalRawData() continuum mode', {
 })
 
 test_that('peakPantheR_singleFileSearch() continuum mode', {
-    skip_if_not(can_read_continuum_mzml(), 'mzR cannot open the continuum mzML fixture in this CI image')
+    skip_if_not(can_read_continuum_mzml(), 'mzR could not open or validate all required continuum mzML fixtures')
 
     # peakStatistic, no plotEICsPath, no getAcquTime, no FIR, no verbose
 
@@ -145,6 +145,8 @@ test_that('peakPantheR_parallelAnnotation() continuum mode', {
     # use 2 continuum mode files from the msdata pkg
     input_spectraPaths <- c(system.file('sciex/20171016_POOL_POS_1_105-134.mzML', package = "msdata"),
                             system.file('sciex/20171016_POOL_POS_3_105-134.mzML', package = "msdata"))
+    skip_if_not(all(vapply(input_spectraPaths, can_read_continuum_mzml, logical(1))),
+          'mzR could not open or validate all required continuum mzML fixtures')
 
     # target serine in msdata files
     input_targetFeatTable     	<- data.frame(matrix(vector(), 1, 8, dimnames=list(c(), c("cpdID", "cpdName", "rtMin", "rt", "rtMax", "mzMin", "mz", "mzMax"))),stringsAsFactors=FALSE)
